@@ -1,24 +1,23 @@
-name: Generate Podcast Feeds #name of podcast
-on: [push] #when the action needs to run-when someone pushes code to main 
-#execute actions
+name: Generate Podcast Feeds
+on: [push] 
 jobs: 
-  build: #create a job called build
-    runs-on: ubuntu-latest   #runs on specific type of machine
-    steps: #series of steps
-      -name: Checkout Repo
-       uses: actions/checkout@v3
-      -name: Setup Python  #setting up python in the machine
-       uses: actions/setup-python@v4
-       with: #along with the version
-         python-version: '3.10'
-      -name: Install dependencies
-       run: |  #multi line commands
+  build: 
+    runs-on: ubuntu-latest   
+    steps: 
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Python  
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |  
          python -m pip install --upgrade pip
          pip install pyyaml
-      -name: Run feed generator
-       run: python feed.py
-      -name: Push repo
-       run: |
+      - name: Run feed generator
+        run: python feed.py
+      - name: Push repo
+        run: |
          git config user.name github-actions
          git config user.email  github-actions@github.com
          git add .
