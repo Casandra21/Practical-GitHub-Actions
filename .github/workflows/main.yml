@@ -1,14 +1,18 @@
-name: Generate Podcast Feeds #name of podcast
-on: [push] #when the action needs to run-when someone pushes code to main 
-#execute actions
-jobs: 
-  build: #create a job called build
-    runs-on: ubuntu-latest   #runs on specific type of machine
-    steps: #series of steps
+name: Generate Podcast Feeds
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout Repo
         uses: actions/checkout@v4.2.2
+
       - name: Podcast Generator
         uses: Casandra21/podcast-generator@main
         with:
-          email: your.email@example.com
-      
+          email: youremail@example.com
