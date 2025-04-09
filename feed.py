@@ -1,15 +1,16 @@
 import yaml
 import xml.etree.ElementTree as xml_tree
 
-with open('feed.yaml','r') as file:
-    yaml_data = yaml.safe_load(file)
-
+#read the file feed.yaml as file
+with open('feed.yaml','r') as file: 
+    yaml_data = yaml.safe_load(file) #safeloading the file to yaml_data
+    #build the rss element-copied the content from rss feed
     rss_element = xml_tree.Element('rss',{'version':'2.0','xmlns:itunes':'http://www.itunes.com/dtds/podcast-1.0.dtd' ,'xmlns:content':'http://purl.org/rss/1.0/modules/content/'})
-
+#build channel element as subelement of rss
 channel_element = xml_tree.SubElement(rss_element,'channel')
-    
+#link element is needed for channel so directly reading it from yaml file
 link_element = yaml_data['link']
-
+#data being read from yaml file as given in the rss feed we are forming it 
 xml_tree.SubElement(channel_element,'title').text = yaml_data['title']
 xml_tree.SubElement(channel_element,'format').text = yaml_data['format']
 xml_tree.SubElement(channel_element,'subtitle').text = yaml_data['subtitle']
@@ -20,7 +21,7 @@ xml_tree.SubElement(channel_element,'language').text = yaml_data['language']
 xml_tree.SubElement(channel_element,'link').text = link_element
 
 xml_tree.SubElement(channel_element,'itunes:category',{'text': yaml_data['category']})
-
+#item will be looped from the yaml 
 for item in yaml_data['item']:
     item_element = xml_tree.SubElement(channel_element,'item')
     xml_tree.SubElement(item_element,'title').text = item['title']
@@ -35,6 +36,6 @@ for item in yaml_data['item']:
         'length': item['length']
     })
 
-
+#writing it to podacst.xml
 output_tree = xml_tree.ElementTree(rss_element)
 output_tree.write('podcast.xml', encoding='UTF-8', xml_declaration=True)
