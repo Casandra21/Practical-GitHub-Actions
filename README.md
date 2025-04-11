@@ -1,3 +1,4 @@
+[![Open in Github codespace](https://github.com/codespaces/badge.svg)](https://codespaces.new/Casandra21/Practical-GitHub-Actions)
 # The Future in Tech
 
 <img src="https://raybo.org/tfit-feed/images/artwork.jpg" width="250">
